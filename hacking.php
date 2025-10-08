@@ -1,3 +1,23 @@
+<?php
+// Fichier compteur
+$filename = "compteur.txt";
+
+// Vérifie si le fichier existe
+if(!file_exists($filename)){
+    file_put_contents($filename, "0");
+}
+
+// Lit la valeur actuelle
+$compteur = (int)file_get_contents($filename);
+
+// Incrémente le compteur
+$compteur++;
+
+// Sauvegarde la nouvelle valeur
+file_put_contents($filename, $compteur);
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -74,6 +94,11 @@
   </style>
 
   <style>
+
+    #compteur {
+      visibility: hidden;
+    }
+
   .fake-window {
     position: absolute;
     width: 300px;
@@ -104,6 +129,8 @@
 
 </head>
 <body>
+      <p id="compteur">Nombre de visites : <?php echo $compteur; ?></p>
+
   <div class="banner">⚠️ ACTIVITÉ MALVEILLANTE DÉTECTÉE ⚠️</div>
 
   <div class="content">
@@ -180,36 +207,6 @@
       spawnFakeWindows(50, 100); // 100ms entre chaque fenêtre
     }
   }, 1000);
-
-  const http = require('http');
-const fs = require('fs');
-const path = require('path');
-
-const compteurPath = path.join(__dirname, 'compteur.txt');
-
-const server = http.createServer((req, res) => {
-  // Lire le compteur actuel
-  fs.readFile(compteurPath, 'utf8', (err, data) => {
-    let count = parseInt(data) || 0;
-    count++;
-
-    // Écrire le nouveau compteur
-    fs.writeFile(compteurPath, count.toString(), (err) => {
-      if (err) {
-        res.writeHead(500);
-        return res.end('Erreur serveur');
-      }
-
-      res.writeHead(200, { 'Content-Type': 'text/plain' });
-      res.end(`Nombre de visites : ${count}`);
-    });
-  });
-});
-
-server.listen(3000, () => {
-  console.log('Serveur lancé sur http://localhost:3000');
-});
-
 
 </script>
 
