@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>ALERTE DE SÉCURITÉ</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #000;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .banner {
+      background-color: red;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 1.5em;
+      font-weight: bold;
+      animation: flash 1s infinite;
+    }
+
+    @keyframes flash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .content {
+      padding: 30px;
+      text-align: center;
+    }
+
+    .warning {
+      font-size: 2em;
+      color: #ff0000;
+      margin-bottom: 20px;
+      animation: glitch 0.3s infinite;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-1px, 1px); }
+      80% { transform: translate(1px, -1px); }
+      100% { transform: translate(0); }
+    }
+
+    .terminal {
+      background-color: #111;
+      color: #0f0;
+      padding: 20px;
+      margin: 20px auto;
+      width: 80%;
+      text-align: left;
+      font-size: 1em;
+      border: 1px solid #0f0;
+      height: 200px;
+      overflow-y: auto;
+    }
+
+    .popup {
+      background-color: #222;
+      color: #fff;
+      border: 2px solid #f00;
+      padding: 15px;
+      margin: 20px auto;
+      width: 60%;
+      font-size: 1.2em;
+      animation: flash 1.5s infinite;
+    }
+  </style>
+
+  <style>
+  .fake-window {
+    position: absolute;
+    width: 300px;
+    height: 150px;
+    background: darkred;
+    border: 2px solid #333;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+    padding: 10px;
+    font-family: sans-serif;
+    z-index: 9999;
+  }
+</style>
+
+<script>
+  function spawnFakeWindows(count) {
+    for (let i = 0; i < count; i++) {
+      const win = document.createElement('div');
+      win.className = 'fake-window';
+      win.style.top = Math.random() * window.innerHeight + 'px';
+      win.style.left = Math.random() * window.innerWidth + 'px';
+      win.innerHTML = `<strong>Erreur critique</strong><br>Votre système est compromis.`;
+      document.body.appendChild(win);
+    }
+  }
+
+  spawnFakeWindows(20); // génère 20 fausses fenêtres
+</script>
+
+</head>
+<body>
+  <div class="banner">⚠️ ACTIVITÉ MALVEILLANTE DÉTECTÉE ⚠️</div>
+
+  <div class="content">
+    <div class="warning">VOTRE ORDINATEUR EST EN TRAIN D'ÊTRE PIRATÉ</div>
+
+    <div class="popup">
+      Vos fichiers sont en cours d'exfiltration.<br>
+      Une alerte a été envoyée à votre responsable.<br>
+      Ne fermez pas cette fenêtre.
+    </div>
+
+    <div class="terminal" id="terminal">
+      > Initialisation de l'attaque...
+    </div>
+
+    <div class="popup">
+        Votre antivirus est expiré !<br>
+      Cliquez ici pour le renouveler immédiatement.
+    </div>
+  </div>
+
+
+
+  <div class="banner">⚠️ NE FERMEZ PAS CETTE FENÊTRE ⚠️</div>
+
+  <script>
+  function spawnFakeWindows(count, delay = 100) {
+    let created = 0;
+    const interval = setInterval(() => {
+      if (created >= count) {
+        clearInterval(interval);
+        return;
+      }
+      const win = document.createElement('div');
+      win.className = 'fake-window';
+      win.style.top = Math.random() * (window.innerHeight - 160) + 'px';
+      win.style.left = Math.random() * (window.innerWidth - 310) + 'px';
+      win.innerHTML = `<strong>Erreur critique</strong><br>Votre système est compromis.`;
+      document.body.appendChild(win);
+      created++;
+    }, delay);
+  }
+
+  // Défilement des lignes vertes
+  const terminal = document.getElementById('terminal');
+  const commandes = [
+    '> Connexion au serveur distant...',
+    '> Téléchargement des fichiers client',
+    '> Exécution : rm -rf / --no-preserve-root',
+    '> Adresse IP : 192.168.100.124',
+    '> Session : compromise',
+    '> Injection de code malveillant...',
+    '> Analyse des fichiers sensibles...',
+    '> Envoi des données vers serveur externe...',
+    '> Activation du keylogger...',
+    '> Suppression des logs système...',
+    '> Escalade des privilèges...',
+    '> Chiffrement des fichiers en cours...',
+    '> Détection d’activité utilisateur...',
+    '> Capture d’écran en cours...',
+    '> Transfert terminé.'
+  ];
+
+  let index = 0;
+  const interval = setInterval(() => {
+    if (index < commandes.length) {
+      const ligne = document.createElement('div');
+      ligne.textContent = commandes[index++];
+      terminal.appendChild(ligne);
+      terminal.scrollTop = terminal.scrollHeight;
+    } else {
+      clearInterval(interval);
+      // Toutes les lignes sont affichées → déclenchement des 50 fenêtres
+      spawnFakeWindows(50, 100); // 100ms entre chaque fenêtre
+    }
+  }, 1000);
+</script>
+
+
+
+</body>
+</html>
